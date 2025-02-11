@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CategoryTabs = () => {
+const CategoryTabs = ({ categories, onClick }) => {
   return <></>
 }
 
