@@ -28,7 +28,11 @@ const RestaurantContainer = () => {
   const onTabClick = useCallback((category) => {
     setCategories((categories) => {
       const set = new Set(categories)
-      set.add(category)
+      if (set.has(category)) {
+        set.delete(category)
+      } else {
+        set.add(category)
+      }
 
       return [...set.values()]
     })
