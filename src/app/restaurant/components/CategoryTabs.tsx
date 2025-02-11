@@ -11,7 +11,7 @@ const { medium } = sizes
 
 const StyledNav = styled.nav<CommonType>`
   display: flex;
-  flex-wrap: warp;
+  flex-wrap: wrap;
   margin-bottom: 30px;
 
   .tab {
@@ -21,14 +21,16 @@ const StyledNav = styled.nav<CommonType>`
     border-radius: 5px;
     cursor: pointer;
     font-size: ${medium};
+    margin-bottom: 5px;
 
     &.on {
       background: ${primary};
       color: ${white};
     }
-    .tab + .tab {
-      margin-left: 15px;
-    }
+  }
+
+  .tab + .tab {
+    margin-left: 5px;
   }
 `
 
