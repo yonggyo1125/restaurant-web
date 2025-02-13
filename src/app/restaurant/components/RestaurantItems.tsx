@@ -19,8 +19,20 @@ const ListItem = ({ item, onClick }) => {
   )
 }
 
-const RestaurantItems = ({ items }) => {
-  return <StyledUl></StyledUl>
+const RestaurantItems = ({ items, onClick }) => {
+  return (
+    items && (
+      <StyledUl>
+        {items.map((item) => (
+          <ListItem
+            key={'restaurant_' + item.seq}
+            item={item}
+            onClick={onClick}
+          />
+        ))}
+      </StyledUl>
+    )
+  )
 }
 
 export default React.memo(RestaurantItems)
