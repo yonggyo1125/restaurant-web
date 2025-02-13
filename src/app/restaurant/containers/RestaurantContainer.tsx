@@ -20,7 +20,9 @@ const RestaurantContainer = () => {
   const [search, setSearch] = useState<SearchType>({ mode: 'current' })
   const [categories, setCategories] = useState<string[]>([])
 
-  useEffect(() => {}, [categories]) // 분류가 변경될때 마다 바로바로 조회 내용 반영
+  useEffect(() => {
+    setSearch((search) => ({ ...search, category: categories }))
+  }, [categories]) // 분류가 변경될때 마다 바로바로 조회 내용 반영
 
   useEffect(() => {
     const { mode, limit, lat, lon } = search
