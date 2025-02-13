@@ -91,7 +91,7 @@ const RestaurantContainer = () => {
     <>
       <CategoryTabs categories={categories} onClick={onTabClick} />
       <SearchForm
-        form={search}
+        form={_search}
         onChange={onChange}
         onSubmit={onSubmit}
         onClick={onClick}
