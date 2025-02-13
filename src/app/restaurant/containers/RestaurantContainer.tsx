@@ -81,7 +81,7 @@ const RestaurantContainer = () => {
       <CategoryTabs categories={categories} onClick={onTabClick} />
       <SearchForm form={search} onChange={onChange} onSubmit={onSubmit} />
       <KakaoMap />
-      {loading ? <Loading /> : <RestaurantItems />}
+      {loading ? <Loading /> : <RestaurantItems items={items} />}
     </>
   )
 }
