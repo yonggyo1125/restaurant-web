@@ -25,9 +25,8 @@ export const getList = async (search) => {
 
   const qs = toQueryString(search)
   apiUrl = `${apiUrl}${qs && qs.trim() ? '?' + qs : ''}`
-
   const res = await apiRequest(apiUrl)
   const result = await res.json()
 
-  return result.success ? result.data : []
+  return result ?? []
 }

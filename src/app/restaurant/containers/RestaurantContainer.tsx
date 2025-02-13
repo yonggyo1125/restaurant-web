@@ -4,6 +4,10 @@ import CategoryTabs from '../components/CategoryTabs'
 import SearchForm from '../components/SearchForm'
 import KakaoMap from '@/app/global/components/KakaoMap'
 import RestaurantItems from '../components/RestaurantItems'
+import { getList } from '../services/actions'
+import { List } from 'react-content-loader'
+
+const Loading = () => <List />
 
 type SearchType = {
   mode: 'current' | 'search'
@@ -19,6 +23,18 @@ type SearchType = {
 const RestaurantContainer = () => {
   const [search, setSearch] = useState<SearchType>({ mode: 'current' })
   const [categories, setCategories] = useState<string[]>([])
+  const [items, setItems] = useState<any>([])
+  const [loading, setLoading] = useState<boolean>(false)
+
+  useEffect(() => {
+    ;(async () => {
+      setLoading(true)
+      const _items = await getList(search)
+      setItems(_items)
+      console.log('items', _items)
+      setLoading(false)
+    })()
+  }, [search])
 
   useEffect(() => {
     setSearch((search) => ({ ...search, category: categories }))
@@ -65,7 +81,7 @@ const RestaurantContainer = () => {
       <CategoryTabs categories={categories} onClick={onTabClick} />
       <SearchForm form={search} onChange={onChange} onSubmit={onSubmit} />
       <KakaoMap />
-      <RestaurantItems />
+      {loading ? <Loading /> : <RestaurantItems />}
     </>
   )
 }
