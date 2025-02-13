@@ -22,6 +22,7 @@ type SearchType = {
 
 const RestaurantContainer = () => {
   const [search, setSearch] = useState<SearchType>({ mode: 'current' })
+  const [_search, _setSearch] = useState<SearchType>({ mode: 'current' })
   const [categories, setCategories] = useState<string[]>([])
   const [items, setItems] = useState<any>([])
   const [loading, setLoading] = useState<boolean>(false)
@@ -31,7 +32,6 @@ const RestaurantContainer = () => {
       setLoading(true)
       const _items = await getList(search)
       setItems(_items)
-      console.log('items', _items)
       setLoading(false)
     })()
   }, [search])
@@ -56,7 +56,11 @@ const RestaurantContainer = () => {
   }, [search])
 
   const onChange = useCallback((e) => {
-    setSearch((search) => ({ ...search, [e.target.name]: e.target.value }))
+    _setSearch((search) => ({ ...search, [e.target.name]: e.target.value }))
+  }, [])
+
+  const onClick = useCallback((field, value) => {
+    _setSearch((search) => ({ ...search, [field]: value }))
   }, [])
 
   const onTabClick = useCallback((category) => {
@@ -72,16 +76,32 @@ const RestaurantContainer = () => {
     })
   }, [])
 
-  const onSubmit = useCallback((e) => {
-    e.preventDefault()
-  }, [])
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault()
+
+      setSearch(_search)
+    },
+    [_search],
+  )
+
+  const onMoveToLocation = useCallback((lat, lon) => {}, [])
 
   return (
     <>
       <CategoryTabs categories={categories} onClick={onTabClick} />
-      <SearchForm form={search} onChange={onChange} onSubmit={onSubmit} />
+      <SearchForm
+        form={search}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onClick={onClick}
+      />
       <KakaoMap />
-      {loading ? <Loading /> : <RestaurantItems items={items} />}
+      {loading ? (
+        <Loading />
+      ) : (
+        <RestaurantItems items={items} onClick={onMoveToLocation} />
+      )}
     </>
   )
 }
