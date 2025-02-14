@@ -28,6 +28,7 @@ const RestaurantContainer = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [locations, setLocations] = useState<any>([])
   const [center, setCenter] = useState<any>({})
+  const [pan, setPan] = useState<any>({})
 
   useEffect(() => {
     ;(async () => {
@@ -105,7 +106,9 @@ const RestaurantContainer = () => {
     [_search],
   )
 
-  const onMoveToLocation = useCallback((lat, lon) => {}, [])
+  const onMoveToLocation = useCallback((lat, lon) => {
+    setPan({ lat, lon })
+  }, [])
 
   return (
     <>
@@ -117,7 +120,7 @@ const RestaurantContainer = () => {
         onClick={onClick}
       />
       {locations && locations.length > 0 && (
-        <KakaoMap locations={locations} center={center} />
+        <KakaoMap locations={locations} center={center} pan={pan} />
       )}
       {loading ? (
         <Loading />

@@ -1,18 +1,33 @@
 'use client'
 import React, { useRef, useEffect } from 'react'
 
-const KakaoMap = ({ center, locations }) => {
+type Props = {
+  center: any
+  locations: any[]
+  pan?: any
+}
+
+const KakaoMap = ({ center, locations, pan }: Props) => {
   const mapRef = useRef<any>(undefined)
+  const mContainer = useRef<any>(undefined)
+
+  useEffect(() => {
+    if (pan && pan.lat && pan.lon) {
+      const moveLatLng = new window.kakao.maps.LatLng(pan.lat, pan.lon)
+      mContainer.current.panTo(moveLatLng)
+    }
+  }, [pan])
 
   useEffect(() => {
     if (mapRef) {
       const mapContainer = mapRef.current, // 지도를 표시할 div
         mapOption = {
           center: new window.kakao.maps.LatLng(center.lat, center.lon), // 지도의 중심좌표
-          level: 3, // 지도의 확대 레벨
+          level: 5, // 지도의 확대 레벨
         }
 
       const map = new window.kakao.maps.Map(mapContainer, mapOption) // 지도를 생성합니다
+      mContainer.current = map
       /*
       const locations = [
         {
@@ -50,7 +65,7 @@ const KakaoMap = ({ center, locations }) => {
         })
       }
     }
-  }, [mapRef, locations])
+  }, [mapRef, locations, center])
 
   return <div ref={mapRef} style={{ height: 350 }}></div>
 }
