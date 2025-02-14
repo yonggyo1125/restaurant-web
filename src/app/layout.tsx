@@ -21,6 +21,16 @@ export default async function RootLayout({
   const userInfo = await getUserInfo()
   return (
     <html lang="ko">
+      <head>
+        <script
+          async
+          type="text/javascript"
+          src={
+            '//dapi.kakao.com/v2/maps/sdk.js?appkey=' +
+            process.env.NEXT_PUBLIC_KAKAO_KEY
+          }
+        ></script>
+      </head>
       <body>
         <StyledComponentsRegistry>
           <UserProvider _userInfo={userInfo}>
