@@ -19,11 +19,11 @@ const KakaoMap = ({ center, locations, pan }: Props) => {
   const mContainer = useRef<any>(undefined)
 
   useEffect(() => {
-    if (pan && pan.lat && pan.lon) {
+    if (pan && pan.lat && pan.lon && mContainer && mContainer.current) {
       const moveLatLng = new window.kakao.maps.LatLng(pan.lat, pan.lon)
       mContainer.current.panTo(moveLatLng)
     }
-  }, [pan])
+  }, [pan, mContainer])
 
   useEffect(() => {
     if (mapRef) {
