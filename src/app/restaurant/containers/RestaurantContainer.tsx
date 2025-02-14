@@ -64,7 +64,7 @@ const RestaurantContainer = () => {
           ...search,
           lat: pos.coords.latitude,
           lon: pos.coords.longitude,
-          limit: limit < 1 ? 50 : limit,
+          limit: limit < 1 ? 5000 : limit,
         }))
 
         setCenter({ lat: pos.coords.latitude, lon: pos.coords.longitude })

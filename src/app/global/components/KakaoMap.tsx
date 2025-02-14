@@ -1,5 +1,12 @@
 'use client'
 import React, { useRef, useEffect } from 'react'
+import styled from 'styled-components'
+import type { CommonType } from '../types/StyledType'
+
+const StyledMap = styled.div<CommonType>`
+  height: 350px;
+  margin-bottom: 50px;
+`
 
 type Props = {
   center: any
@@ -23,22 +30,11 @@ const KakaoMap = ({ center, locations, pan }: Props) => {
       const mapContainer = mapRef.current, // 지도를 표시할 div
         mapOption = {
           center: new window.kakao.maps.LatLng(center.lat, center.lon), // 지도의 중심좌표
-          level: 5, // 지도의 확대 레벨
+          level: 1, // 지도의 확대 레벨
         }
 
       const map = new window.kakao.maps.Map(mapContainer, mapOption) // 지도를 생성합니다
       mContainer.current = map
-      /*
-      const locations = [
-        {
-          lat: 33.450701,
-          lon: 126.570667,
-          category: '한식',
-          name: '식당명',
-          address: '주소',
-        },
-      ]
-      */
 
       for (const loc of locations) {
         const position = new window.kakao.maps.LatLng(loc.lat, loc.lon)
@@ -67,7 +63,7 @@ const KakaoMap = ({ center, locations, pan }: Props) => {
     }
   }, [mapRef, locations, center])
 
-  return <div ref={mapRef} style={{ height: 350 }}></div>
+  return <StyledMap ref={mapRef}></StyledMap>
 }
 
 export default React.memo(KakaoMap)
