@@ -4,6 +4,7 @@ import type { CommonType } from '@/app/global/types/StyledType'
 import { MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/md'
 import { BigButton } from '@/app/global/components/Buttons'
 import { Input } from '@/app/global/components/FormComponents'
+import { sido } from '../../global/datas/areas'
 
 const StyledForm = styled.form<CommonType>``
 
@@ -43,6 +44,12 @@ const SearchForm = ({ form, onChange, onClick, onSubmit }) => {
           />
         </dd>
       </dl>
+      {form?.mode !== 'current' && (
+        <dl>
+          <dt>지역선택</dt>
+          <dd></dd>
+        </dl>
+      )}
       <BigButton type="submit" color="primary">
         검색하기
       </BigButton>
